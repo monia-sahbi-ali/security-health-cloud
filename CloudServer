@@ -1,0 +1,19 @@
+package cloudsimulation;
+
+import nessi.core.*;
+
+public class CloudServer extends Node {
+
+    public CloudServer(String name) {
+        super(name);
+    }
+
+    @Override
+    public void receive(Message msg) {
+        // Temps de traitement
+        schedule(50, () -> {
+            Message response = new Message("RESPONSE");
+            send(response, msg.getSource(), 0);
+        });
+    }
+}
