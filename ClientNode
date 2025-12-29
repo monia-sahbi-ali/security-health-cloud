@@ -1,0 +1,26 @@
+package cloudsimulation;
+
+import nessi.core.*;
+
+public class ClientNode extends Node {
+
+    public ClientNode(String name) {
+        super(name);
+    }
+
+    @Override
+    public void start() {
+        sendRequest();
+    }
+
+    private void sendRequest() {
+        Message msg = new Message("REQUEST");
+        send(msg, 0);
+        schedule(100, this::sendRequest); // une requête toutes les 100 unités
+    }
+
+    @Override
+    public void receive(Message msg) {
+        System.out.println(getName() + " reçoit une réponse");
+    }
+}
