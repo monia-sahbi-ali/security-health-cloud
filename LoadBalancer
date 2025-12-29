@@ -1,0 +1,21 @@
+package cloudsimulation;
+
+import nessi.core.*;
+import java.util.*;
+
+public class LoadBalancer extends Node {
+
+    private int index = 0;
+
+    public LoadBalancer(String name) {
+        super(name);
+    }
+
+    @Override
+    public void receive(Message msg) {
+        List<Node> neighbors = getNeighbors();
+        Node server = neighbors.get(index % neighbors.size());
+        index++;
+        send(msg, server, 0);
+    }
+}
