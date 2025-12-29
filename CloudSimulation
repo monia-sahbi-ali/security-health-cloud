@@ -1,0 +1,28 @@
+
+public class CloudSimulation {
+
+    public static void main(String[] args) {
+
+        Simulator sim = Simulator.getInstance();
+        sim.setEndTime(1000);
+
+        // Création des nœuds
+        ClientNode client1 = new ClientNode("Client1");
+        ClientNode client2 = new ClientNode("Client2");
+
+        LoadBalancer lb = new LoadBalancer("LoadBalancer");
+
+        CloudServer server1 = new CloudServer("Server1");
+        CloudServer server2 = new CloudServer("Server2");
+
+        // Connexions réseau (latence en ms)
+        sim.connect(client1, lb, 10);
+        sim.connect(client2, lb, 10);
+
+        sim.connect(lb, server1, 20);
+        sim.connect(lb, server2, 20);
+
+        // Démarrage
+        sim.start();
+    }
+}
